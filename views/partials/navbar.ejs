@@ -1,18 +1,15 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
+<nav class="navbar navbar-expand-lg bg-body-tertiary px-3">
   <div class="container-fluid">
-    <!-- LOGO DA EMPRESA  -->
+    <!-- Logo -->
     <a class="navbar-brand" href="/">
       <img
         src="https://i1.sndcdn.com/artworks-000170071431-5jy7ga-t240x240.jpg"
-        alt="logo"
+        alt="Logo"
         width="60"
         height="60"
       />
-      C&G Solutions
     </a>
-    <!-- FIM DA LOGO  -->
-
-    <!-- BOTÃO PRA MAXIMIZAR O MENU  -->
+    <!-- Botão de maximizar o menu -->
     <button
       class="navbar-toggler"
       type="button"
@@ -24,17 +21,15 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <!-- FIM DO BOTAO  -->
-
+    <!-- Opções menu -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- OPÇÃO DE PÁGINA PRINCIPAL  -->
+        <!-- Pagina inicial -->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/home">Home</a>
+          <a class="nav-link active" aria-current="page" href="/">Inicio</a>
         </li>
-        <!-- FIM DE OPÇÃO PÁGINA PRINCIPAL  -->
 
-        <!-- OPÇÕES DE PÁGINA PARA USUÁRIO  -->
+        <!-- Opções usuários -->
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -55,12 +50,44 @@
           </ul>
         </li>
 
-        <!-- FIM DE OPÇÕES DE USUÁRIO  -->
+        <!-- Opções produtos -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Produtos
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/produtos">Ver produtos</a></li>
+            <li>
+              <a class="dropdown-item" href="/produtos/cadastrar"
+                >Criar produto</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <!-- Desativado -->
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Desativado</a>
+        </li>
       </ul>
-      <!-- AREA DO BOTAO DE SAIR  -->
-      <p class="text-muted mx-2 mb-lg-0">Usuário: Cristiano</p>
-      <button class="btn btn-danger">Sair</button>
-      <!-- FIM DE AREA DO BOTAO DE SAIR  -->
+      <!-- Nome de usuário e botão de sair -->
+      <p class="text-muted mx-2 mb-lg-0" id="textoUsuarioAtual">
+        Usuário: Gregory
+      </p>
+      <button
+        class="btn btn-danger"
+        type="button"
+        onclick="location.href='usuarios/login'"
+      >
+        <i class="bi bi-box-arrow-right"></i>
+        Sair
+      </button>
     </div>
   </div>
 </nav>
