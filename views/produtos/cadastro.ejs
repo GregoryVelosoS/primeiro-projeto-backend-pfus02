@@ -71,7 +71,7 @@
             Imagem de produto
           </label>
           <input
-            type="text"
+            type="url"
             class="form-control form-control-lg"
             id="inputImagem"
             name="imagemUrl"
@@ -88,22 +88,25 @@
         </div>
       </div>
     </div>
-
     <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
   </form>
 
+  <!-- Código para imagem ser alterada de acordo com o que a pessoa colocar -->
   <script>
-
-    const inputImagem = document.getElementById("inputImagem");
-    const previewImagem = document.getElementById("previewImagem");
-
+    // variavel pra acessar a caixinha de input da imagem
+    const inputImagem = document.getElementById("inputImagem")
+    // variavel pra acessar a imagem
+    const previewImagem = document.getElementById("previewImagem")
+    // variável para imagem padrão, caso a pessoa não tenha colocado nenhuma ainda
     const imagemPadrao = "https://www.malhariapradense.com.br/wp-content/uploads/2017/08/produto-sem-imagem.png"
+
+    //Evento é disparado quando o usuário coloca algo na caixinha
     inputImagem.addEventListener("input", () => {
-      const url = inputImagem.value.trim();
-      previewImagem.src =
-        url || imagemPadrao
-;
-    });
+      // Guarda o que a pessoa colocou na caixinha na variável url
+      const url = inputImagem.value
+      // troca o valor do src da imagem, pelo que o usuário digitou na caixinha
+      previewImagem.src = url || imagemPadrao
+    })
   </script>
 </main>
 

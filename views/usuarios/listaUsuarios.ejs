@@ -1,10 +1,85 @@
 <!-- Cabecalho principal  -->
-<%- include('partials/header') %>
+<%- include('../partials/header') %>
 
 <!-- Conteudo do index  -->
-<main>
+<main class="container text-center mt-3">
     <h1> LISTA DE USUÁRIOS </h1>
-</main>
+    <!-- Criando um botão para página de cadastro -->
+    <a href="/usuarios/cadastrar">
+        <button class="btn btn-lg btn-primary">
+            <!-- Utilizando um ícone do bootstrap -->
+            <i class="bi bi-plus-circle"></i>
+            Cadastrar 
+        </button>
+    </a>
+
+
+    <!-- Criando a tabela de acordo com a lista de usuarios -->
+     <% if (usuarios && usuarios.length > 0) { %>
+      <!-- Criando a tabela -->
+        <table class="table table-striped table-hover align-middle mt-5">
+            <!-- Cabecalho da tabela -->
+            <thead class="table-dark">
+                <tr class="text-center">
+                    <th scope="col"> ID </th>
+                    <th scope="col"> Usuário </th>
+                    <th scope="col"> E-mail </th>
+                    <th scope="col"> Tipo </th>
+                    <th scope="col"> Ações </th>                   
+                </tr>
+            </thead>
+            <!-- Corpo da tabela -->
+            <tbody>
+                <!-- Usando a função foreach para 
+                 percorrer o array de usuarios -->
+                <% usuarios.forEach((usuario) => { %>
+                    <tr>
+                       <td> <%= usuario.id %> </td> 
+                       <td> <%= usuario.usuario %> </td> 
+                       <td> <%= usuario.email %> </td> 
+                       <td> <%= usuario.tipo %> </td> 
+                       <td>
+                         <!-- Botão de editar -->
+                            <a href="/usuarios/<%= usuario.id %>">
+                                <button class="btn btn-sm btn-warning me-2">
+                                    <i class="bi bi-pencil-square"></i>
+                                    Editar
+                                </button>
+                            </a>
+                         <!-- Botão de excluir -->
+                            <a href="#">
+                <button 
+                    class="btn btn-sm btn-danger"
+                    onclick="confirmaExclusao('<%= usuario.usuario%>','<%= usuario.id %>')"
+                    >
+                    <i class="bi bi-trash3"></i>
+                    Excluir
+                </button>
+                            </a>                        
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <% } else { %>
+         <!-- Mostra uma mensagem, caso não tenha nenhum usuário cadastrado  -->
+        <div class="alert alert-warning text-center mt-5">
+            Nenhum usuário cadastrado no momento.
+         </div>
+
+     <% } %>
+
+     <!-- Criação do script para função de deletar -->
+     <script>
+        function confirmaExclusao(nomeUsuario, id){
+            if(confirm(`Deseja realmente excluir o usuário ${nomeUsuario}`)){
+                window.location.href = `/usuarios/deletar/${id}`
+            }
+        }
+     </script>
+
+    </main>
 
 <!-- Rodape de todas as páginas  -->
-<%- include('partials/footer') %>
+<%- include('../partials/footer') %>

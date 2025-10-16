@@ -1,4 +1,4 @@
-const db = require("../db/db.json");
+const db = require("../data/db.json");
 
 let produtos = db.produtos;
 

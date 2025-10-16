@@ -2,21 +2,24 @@
   "usuarios": [
     {
       "id": 1,
-      "nome": "Gregory",
+      "usuario": "Gregory",
       "email": "gregory@gmail.com",
-      "senha": "7"
+      "senha": "7",
+      "tipo": "Administrador"
     },
     {
       "id": 7,
-      "nome": "Cristiano Ronaldo",
+      "usuario": "Cristiano Ronaldo",
       "email": "cr7@gmail.com",
-      "senha": "7"
+      "senha": "7",
+      "tipo": "Gerente"
     },
     {
       "id": 2,
-      "nome": "Vegetta",
+      "usuario": "Vegetta",
       "email": "vegetta@gmail.com",
-      "senha": "kakaroto"
+      "senha": "kakaroto",
+      "tipo": "Funcionário"
     }
   ]
 }
