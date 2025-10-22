@@ -24,14 +24,15 @@ roteador.post("/cadastrar", userController.salvarUsuario)
 //R = OBTER INFORMAÇÕES DE USUÁRIOS
 // Retorna as informações de todos os usuarios
 roteador.get("/", userController.listarUsuarios)
+
 // Retorna as informações de um usuário apenas
 roteador.get("/:id", userController.buscarUsuario)
 
 // U = ATUALIZAR UM USUÁRIO
-roteador.put("/:id", userController.atualizarUsuario)
+roteador.post("/:id", userController.atualizarUsuario)
 
 //D = DELETAR UM USUÁRIO
-roteador.delete("/:id", userController.deletarUsuario)
+roteador.get("/:id", userController.deletarUsuario)
 
 // Criando a exportação desse arquivo
 module.exports = roteador

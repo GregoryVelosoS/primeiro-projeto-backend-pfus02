@@ -34,12 +34,13 @@ module.exports = {
   listarTodos: () => {
     return listaUsuarios;
   },
+
   // Busca um usuário específico do banco
   buscarPorId: (id) => {
     return listaUsuarios.find((user) => user.id == id || null);
   },
 
-  atualizar: (id, { usuario, email, senha }) => {
+  atualizar: (id, { usuario, email, senha, tipo }) => {
     // Busca na lista de usuários, um usuário com aquele id específico, se achar, pega o index dele e guarda na variávl index
     const index = listaUsuarios.findIndex((user) => user.id == id);
     // Se não achar, significa que um usuário com aquele index não existe
@@ -47,9 +48,10 @@ module.exports = {
     // Se achar um usuário, substitui as informações que estavam nele, pelas novas enviadas
     listaUsuarios[index] = {
       ...listaUsuarios[index],
-      listaUsuarios: usuario || listaUsuarios[index].usuario,
-      listaUsuarios: email || listaUsuarios[index].email,
-      listaUsuarios: senha || listaUsuarios[index].senha,
+      usuario: usuario || listaUsuarios[index].usuario,
+      email: email || listaUsuarios[index].email,
+      senha: senha || listaUsuarios[index].senha,
+      tipo: tipo || listaUsuarios[index].tipo,
     };
     // Retorna o usuário atualizado
     return listaUsuarios[index];

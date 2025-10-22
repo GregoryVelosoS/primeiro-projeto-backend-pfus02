@@ -19,4 +19,8 @@ module.exports = {
     console.log("Produto salvo:", novoProduto);
     return novoProduto;
   },
+
+   // READ
+  listarTodos: () => produtos,
+
 };
