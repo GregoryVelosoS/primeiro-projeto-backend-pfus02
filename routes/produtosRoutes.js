@@ -10,5 +10,12 @@ router.post("/cadastrar", produtoController.salvarProduto);
 
 // R
 router.get("/", produtoController.listarProdutos);       
+router.get("/:id", produtoController.buscarProduto);   
+
+// U
+router.post("/:id", produtoController.atualizarProduto);  
+
+// D
+// router.get("/deletar/:id", produtoController.deletarProduto); 
 
 module.exports = router;

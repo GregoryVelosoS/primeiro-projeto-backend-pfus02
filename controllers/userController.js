@@ -115,12 +115,19 @@ module.exports = {
     const id = req.params.id;
     //Guarda o usuário deletado em uma variável
     const deletado = userModel.deletar(id);
-
+  
     // Se não achar, avisa que deu erro
     if (!deletado) {
-      return res.status(404).json({ mensagem: "Usuário não encontrado" });
+      return res.status(404).render("usuarios/erroUsuario",{
+        titulo: "Erro",
+        mensagem:"Não foi possível deletar"
+      })
     }
-    // se atualizar, manda uma mensagem dizendo que deu certo
-    res.json({ deletado: deletado, mensagem: "Usuário foi deletado" });
+    // se deletar, manda uma mensagem dizendo que deu certo
+    res.render("usuarios/confirmacaoUsuarios",{
+      titulo:"Deletado",
+      tipo: "deletar",
+      deletado
+    })
   },
 };

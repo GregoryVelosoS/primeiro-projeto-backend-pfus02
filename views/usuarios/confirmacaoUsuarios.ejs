@@ -9,16 +9,16 @@
   >
     <!-- Se a página que chamou for a de cadastro, mostra que o cadastro foi realizado, mostrando o nome do usuário que acabou de ser cadastrado -->
     <% if (tipo == "cadastro") { %>
-    <h1 class="text-white">
-      <!-- Pega o nome de quem foi cadastrado, vindo do objeto usuarioNovo -->
-      Cadastro de <%- usuarioNovo.usuario %> realizado
-    </h1>
+      <h1 class="text-white">
+        <!-- Pega o nome de quem foi cadastrado, vindo do objeto usuarioNovo -->
+        Cadastro de <%- usuarioNovo.usuario %> realizado
+      </h1>
     <!-- Se a página que chamou for a de edição, mostra que o usuário foi editado -->
     <% } else if (tipo == "edicao") { %>
-    <h1 class="text-white">
-      <!-- Pega o nome de quem foi atualizado, vindo do objeto atualizado -->
-      Edição de <%- usuarioAtualizado.usuario %> confirmado
-    </h1>
+      <h1 class="text-white">
+        <!-- Pega o nome de quem foi atualizado, vindo do objeto atualizado -->
+        Edição de <%- usuarioAtualizado.usuario %> confirmado
+      </h1>
     <!-- Se a página que chamou for a de deletar usuário, mostra que o usuário foi excluído -->
     <% } else { %>
         <h1 class="text-white">

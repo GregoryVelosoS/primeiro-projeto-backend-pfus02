@@ -32,7 +32,7 @@ roteador.get("/:id", userController.buscarUsuario)
 roteador.post("/:id", userController.atualizarUsuario)
 
 //D = DELETAR UM USUÁRIO
-roteador.get("/:id", userController.deletarUsuario)
+roteador.get("/deletar/:id", userController.deletarUsuario)
 
 // Criando a exportação desse arquivo
 module.exports = roteador

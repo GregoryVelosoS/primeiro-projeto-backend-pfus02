@@ -32,4 +32,47 @@ module.exports = {
       produtos,
     });
   },
+
+  
+  buscarProduto: (req, res) => {
+    const id = req.params.id;
+    const produto = produtoModel.buscarPorId(id);
+
+    if (!produto) {
+      return res.status(404).render("produtos/erroProduto", {
+        titulo: "Erro",
+        mensagem: "Produto não encontrado",
+      });
+    }
+
+    res.render("produtos/editar", { titulo: "Edição", produto });
+  },
+
+  atualizarProduto: (req, res) => {
+    const id = req.params.id;
+    const { nome, descricao, categoria, preco, quantidade, imagemUrl } = req.body;
+    console.log(req.body);
+
+    const atualizado = produtoModel.atualizar(id, {
+      nome,
+      descricao,
+      categoria,
+      preco,
+      quantidade,
+      imagemUrl,
+    });
+
+    if (!atualizado) {
+      return res.status(404).render("produtos/erroProduto", {
+        titulo: "Erro",
+        mensagem: "Produto não encontrado",
+      });
+    }
+
+    res.render("produtos/confirmacao", {
+      tipo: "edicao",
+      titulo: "Edição Confirmada",
+      atualizado,
+    });
+  },
 };
