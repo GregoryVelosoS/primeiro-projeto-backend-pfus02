@@ -5,8 +5,7 @@ const db = require("../data/db.json");
 let listaUsuarios = db.usuarios;
 
 // ARÍA NOVA COM CONEZÃO AO BANDO DE DADUS 
-// variável que importa a conexão com o banco
-const conn = require("../config/conexao-banco")
+
 
 
 module.exports = {
