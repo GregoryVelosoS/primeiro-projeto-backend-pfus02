@@ -8,7 +8,7 @@ module.exports = {
   // LOGIN
   // REsponde a requisição mostrando a visualização da tela de login
   formLogin: (req, res) => {
-    res.render("login", { titulo: "Login" });
+    res.render("login", { titulo: "Login"});
   },
 
   // Função para levar os dados preenchidos para o model realizar o login
@@ -16,51 +16,37 @@ module.exports = {
     // Cria um objeto com as informações do body, retirados dos inputs
     const { email, senha } = req.body;
     // Manda as informações do objeto para o model
-    userModel.login(email, senha, (erro, logado) => {
-      if (erro) {
-        return res.render("login", {
-          titulo: "Login errado",
-          erro: "erro no servidor",
-        });
-      }
-      // Se não conseguiu logar, manda uma mensagem de erro
-      if (!logado) {
-        res.render("login", {
-          titulo: "Login errado",
-          erro: "Email ou senha inválidos",
-        });
-      }
-      // Se conseguiu manda uma mensagem de confirmação
-      else {
-        res.status(200);
-        res.render("index", { titulo: "Bem vindo", usuario: logado.nome });
-      }
-    });
+    const logado = userModel.login(email, senha);
+
+    // Se não conseguiu logar, manda uma mensagem de erro
+    if (!logado) {
+      // return res.status(401).json({ mensagem: "Usuário ou senha inválidos" });
+      res.status(401)
+      res.render("login", {titulo: "Login errado", erro:"Email ou senha inválidos"})
+    }
+    // Se conseguiu manda uma mensagem de confirmação
+    else {
+      // res.json({ mensagem: "Login realizado" });
+      res.status(200)
+      res.render("index", { titulo: "Bem vindo", usuario: logado.nome})
+    }
   },
 
   // CRUD
   // C
   // Responde a requisição mostrando a visualização da tela de cadastro
   formCadastro: (req, res) => {
-    res.render("usuarios/cadastroUsuarios", { titulo: "Cadastro" });
+    res.render("usuarios/cadastroUsuarios", { titulo: "Cadastro"});
   },
 
   // Função para levar os dados preenchidos para o model realizar o cadastro
   salvarUsuario: (req, res) => {
     const { usuario, email, senha, tipo } = req.body;
-    userModel.salvar({ usuario, email, senha, tipo }, (erro, usuarioNovo) => {
-      // Copiei de lá de cima e alterei
-      if (erro) {
-        return res.render("usuarios/erroUsuario", {
-          titulo: "Erro",
-          erro: "Erro ao salvar usuário",
-        });
-      }
-      res.render("usuarios/confirmacaoUsuarios", {
-        tipo: "cadastro",
-        titulo: "Cadastro confirmado",
-        usuarioNovo,
-      });
+    usuarioNovo = userModel.salvar({ usuario, email, senha, tipo });
+    res.render("usuarios/confirmacaoUsuarios", {
+      tipo: "cadastro",
+      titulo: "Cadastro confirmado",
+      usuarioNovo
     });
   },
 
@@ -70,10 +56,8 @@ module.exports = {
     // Guarda a lista de usuários, que o model mandou depois que buscou do banco
     const usuarios = userModel.listarTodos();
     // Mostrar a tela de lista pra pessoa, mandando a váriável como parametro
-    res.render("usuarios/listaUsuarios", {
-      usuarios,
-      titulo: "Lista de usuários",
-    });
+    res.render("usuarios/listaUsuarios", 
+              { usuarios, titulo:"Lista de usuários" });
   },
 
   // Função para mostrar apenas um usuario
@@ -86,13 +70,13 @@ module.exports = {
     if (!usuario) {
       return res.status(404).render("usuarios/erroUsuario", {
         titulo: "Erro",
-        mensagem: "Usuário não encontrado",
+        mensagem: "Usuário não encontrado"
       });
     }
     // se achar, devolve as informações via json
     res.render("usuarios/editarUsuarios", {
       titulo: "Editar",
-      usuario,
+      usuario
     });
   },
 
@@ -107,22 +91,23 @@ module.exports = {
       usuario,
       email,
       senha,
-      tipo,
+      tipo
     });
 
     // Se não achar, avisa que deu erro
     if (!usuarioAtualizado) {
-      return res.status(404).render("usuarios/erroUsuario", {
+      return res.status(404).render("usuarios/erroUsuario",{
         titulo: "Erro",
-        mensagem: "Não foi possível atualizar",
-      });
+        mensagem:"Não foi possível atualizar"
+      }
+      )
     }
     // se atualizar, manda uma mensagem dizendo que deu certo
-    res.render("usuarios/confirmacaoUsuarios", {
-      titulo: "Edicao Confirmada",
+    res.render("usuarios/confirmacaoUsuarios",{
+      titulo:"Edicao Confirmada",
       tipo: "edicao",
-      usuarioAtualizado,
-    });
+      usuarioAtualizado
+    })
   },
   // Função para deletar um usuário
   deletarUsuario: (req, res) => {
@@ -130,19 +115,19 @@ module.exports = {
     const id = req.params.id;
     //Guarda o usuário deletado em uma variável
     const deletado = userModel.deletar(id);
-
+  
     // Se não achar, avisa que deu erro
     if (!deletado) {
-      return res.status(404).render("usuarios/erroUsuario", {
+      return res.status(404).render("usuarios/erroUsuario",{
         titulo: "Erro",
-        mensagem: "Não foi possível deletar",
-      });
+        mensagem:"Não foi possível deletar"
+      })
     }
     // se deletar, manda uma mensagem dizendo que deu certo
-    res.render("usuarios/confirmacaoUsuarios", {
-      titulo: "Deletado",
+    res.render("usuarios/confirmacaoUsuarios",{
+      titulo:"Deletado",
       tipo: "deletar",
-      deletado,
-    });
+      deletado
+    })
   },
 };
