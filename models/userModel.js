@@ -1,94 +1,133 @@
 // Importa a conexão com o banco de dados
-const conn = require("../config/conexao-banco.js")
+const conn = require("../config/conexao-banco.js");
 
 module.exports = {
   // Login
-  login: (email,senha,callback) => {
+  login: (email, senha, callback) => {
     // Váriável sql que guarda a consulta desejada
     const sql = ` 
       SELECT * FROM usuarios
       WHERE email = ?
-      AND senha = ? `
+      AND senha = ? `;
 
     // Valores que serão utilizados na consulta
-    const valores = [email, senha]
+    const valores = [email, senha];
 
     // Executar o comando no banco
-    conn.query(sql, valores, (erro, resultados) =>{
+    conn.query(sql, valores, (erro, resultados) => {
       // Lidar com o erro
-      if(erro){
-        return callback( erro, null)
+      if (erro) {
+        return callback(erro, null);
       }
 
       // Retornar um resultado para o controller
-        callback( null, resultados[0] || null)
-    })
+      callback(null, resultados[0] || null);
+    });
   },
 
   // Criar = CREATE
-  salvar: ( { usuario, email, senha, tipo }, callback ) => {
+  salvar: ({ usuario, email, senha, tipo }, callback) => {
     // Váriável sql que guarda a consulta desejada
     const sql = `
       INSERT INTO usuarios (usuario, email, senha, tipo)
       VALUES (?, ?, ?, ?)
-    `
+    `;
 
     // Valores que serão utilizados na consulta
-    const valores = [ usuario, email, senha, tipo ]
+    const valores = [usuario, email, senha, tipo];
 
     // Executar o comando no banco
     conn.query(sql, valores, (erro, resultado) => {
       // Lidar com o erro
-      if(erro){
-        return callback( erro, null)
+      if (erro) {
+        return callback(erro, null);
       }
 
       // Objeto com as informações que o usuário inseriu no banco
-      const novoUsuario = {id: resultado.insertId ,usuario, email, senha, tipo }
+      const novoUsuario = {
+        id: resultado.insertId,
+        usuario,
+        email,
+        senha,
+        tipo,
+      };
 
-      callback( null, novoUsuario)
-    })
+      callback(null, novoUsuario);
+    });
   },
 
   // Listar = READ
-  listarTodos: (callback) =>{
+  listarTodos: (callback) => {
     // Váriável sql que guarda a consulta desejada
-    const sql = `SELECT * FROM usuarios`
+    const sql = `SELECT * FROM usuarios`;
 
     // Executar o comando no banco
     conn.query(sql, (erro, resultados) => {
-      if(erro){
-        return callback(erro, null)
+      if (erro) {
+        return callback(erro, null);
       }
 
-      callback(null, resultados)
-    })
+      callback(null, resultados);
+    });
   },
 
   // Atualizar = UPDEITI
   // Buscar o usuário
-  buscarPorId: () => {
-  },
-  // Atualizar informações
-  atualizar: () =>{
-  },
-
-  // Excluir =  DELETAR
-  deletar: (id, callback) =>{
+  buscarPorId: (id, callback) => {
     // Váriável sql que guarda a consulta desejada
-    const sql = `DELETE FROM usuarios
-                 WHERE id = ? `
+    const sql = `
+        SELECT * FROM usuarios
+        WHERE id = ?`
 
     // Variável com informação oculta/misteriosa
     const valor = [id]
 
     // Executar o comando no banco
-    conn.query(sql, valor, (erro, resultado) => {
-      if(erro){
-        return callback(erro, null)
+    conn.query(sql, valor, (erro, resultados) => {
+      if (erro) {
+        return callback(erro, null);
       }
 
-      callback(null, resultado.affectedRows > 0)
+      callback(null, resultados[0] || null)
     })
-  }
-}
+  },
+  // Atualizar informações
+  atualizar: (id, { usuario, email, senha, tipo }, callback) => {
+    // Váriável sql que guarda a consulta desejada
+    const sql = `
+      UPDATE usuarios
+      SET usuario = ?, email = ?, senha = ?, tipo = ?
+      WHERE id = ? `
+    
+    // Variável com informação oculta/misteriosa
+    const valores = [usuario, email, senha, tipo, id]
+    
+    // Executar o comando no banco
+    conn.query(sql, valores, (erro, resultado) => {
+      if (erro) {
+        return callback(erro, null);
+      }
+
+      callback(null, resultado.affectedRows > 0);
+    });
+  },
+
+  // Excluir =  DELETAR
+  deletar: (id, callback) => {
+    // Váriável sql que guarda a consulta desejada
+    const sql = `DELETE FROM usuarios
+                 WHERE id = ? `;
+
+    // Variável com informação oculta/misteriosa
+    const valor = [id];
+
+    // Executar o comando no banco
+    conn.query(sql, valor, (erro, resultado) => {
+      if (erro) {
+        return callback(erro, null);
+      }
+
+      callback(null, resultado.affectedRows > 0);
+    });
+  },
+};

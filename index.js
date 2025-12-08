@@ -32,12 +32,12 @@ app.use(express.static('public'))
 
 //Rota de página inicial
 app.get("/home", (req,res) => {
-    res.status(200).render("index", { titulo: "Página inicial"})
-} )
+    res.render("login", { titulo: "Login" });
+ })
 
 //Rota inicial do projeto
 app.get("/", (req,res) => { 
-    res.status(200).render("index", { titulo: "Página inicial"})
+    res.render("login", { titulo: "Login" });
  })
 
 //Rota pra quando tentar acessar uma rota que não existe
