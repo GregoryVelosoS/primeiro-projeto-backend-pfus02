@@ -102,13 +102,17 @@ module.exports = {
     // Variável com informação oculta/misteriosa
     const valores = [usuario, email, senha, tipo, id]
     
+    // criar um objeto, pra retornar pro usuario
+    const atualizado = {
+      usuario: valores[0]
+    } 
     // Executar o comando no banco
     conn.query(sql, valores, (erro, resultado) => {
       if (erro) {
         return callback(erro, null);
       }
 
-      callback(null, resultado.affectedRows > 0);
+      callback(null, atualizado);
     });
   },
 
